@@ -1,24 +1,43 @@
 #!/usr/bin/python3
 
 # StegaNoMore
+
 '''
 
-This is a very basic script that performs some basic reconnaissance
-on a file to determine whether any steganography techniques have
-been used to hide files or information.
+Description:
 
-This work is licensed under the GPLv3.0
+    StegaNoMore a very basic script that performs some basic reconnaissance
+    on a file to determine whether any steganography techniques have
+    been used to hide files or information.
 
-# Dependencies:
-Packages:
-    python3
-    strings
-    steghide
-    fcrackzip
-    imagemagick
-    stegcracker (Install with "pip3.6 install stegcracker")
-Other:
-    rockyou.txt must be located in /usr/share/wordlists
+License and Attribution:
+
+    Copyright 2020 - Nick Delcore (Nexxius)
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+Dependencies:
+
+    Packages:
+        python3
+        strings
+        steghide
+        fcrackzip
+        imagemagick
+        stegcracker
+    Other:
+        rockyou.txt must be located in /usr/share/wordlists
 
 '''
 
@@ -26,13 +45,6 @@ Other:
 import sys
 import os
 import subprocess
-
-# Figure out basic requirements.
-
-# Get Arguments
-## Working with Arguments:
-##print("Number of arguments", len(sys.argv)) #Prints the number of arguments.
-##print("Argument List", str(sys.argv)) #Prints the arguments. sys.argv[0] is the script name.
 
 # Get the Target File, stored as $target
 target = sys.argv[1]
@@ -83,7 +95,6 @@ if extension in exif_extensions:
     subprocess.check_call(["identify", "-verbose", target], stdout=f)
 
 # Checking for hidden files with steghide
-# ## Check for hidden files
 # ## If the file is password-protected, commence bruteforcing using rockyou.txt
 steghide_extensions = [".jpg", ".JPG", ".jpeg", ".JPEG", ".bmp", ".BMP", ".wav", ".WAV", ".au", ".AU"] # These are the extensions supported by steghide, so if we have a file with one of these extensions, we will see if steghide has been used to hide information.
 if extension in steghide_extensions:
