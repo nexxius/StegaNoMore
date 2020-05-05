@@ -105,13 +105,14 @@ if extension in steghide_extensions:
 # Compressed File Testing
 compressed_extensions = [".zip", ".ZIP", ".gzip", ".GZIP"]
 ### Test whether the file is encrypted
-encrypted_zip_test = str(subprocess.check_output(["7z","l","-slt",target]))
-if "ZipCrypto" in encrypted_zip_test:
-    print("")
-    print("The compressed file is encrypted.")
-    print("Brute forcing the file using Fcrackzip and Rockyou.txt")
-    subprocess.check_call(["fcrackzip", "-u", "-D", "-p", "/usr/share/wordlists/rockyou.txt", target])
-else:
-    print("The compressed file is not encryped.")
-    print("Extracting the file.")
-    subprocess.check_call(["unzip", target])
+if extension in compressed_extensions:
+    encrypted_zip_test = str(subprocess.check_output(["7z","l","-slt",target]))
+    if "ZipCrypto" in encrypted_zip_test:
+        print("")
+        print("The compressed file is encrypted.")
+        print("Brute forcing the file using Fcrackzip and Rockyou.txt")
+        subprocess.check_call(["fcrackzip", "-u", "-D", "-p", "/usr/share/wordlists/rockyou.txt", target])
+    else:
+        print("The compressed file is not encryped.")
+        print("Extracting the file.")
+        subprocess.check_call(["unzip", target])
